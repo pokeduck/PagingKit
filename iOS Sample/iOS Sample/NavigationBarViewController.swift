@@ -28,8 +28,8 @@ import PagingKit
 class NavigationBarViewController: UIViewController {
     
     
-    lazy var menuView: PagingMenuView = {
-        let menuView = PagingMenuView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
+    lazy var menuView: PKPagingMenuView = {
+        let menuView = PKPagingMenuView(frame: CGRect(x: 0, y: 0, width: 200, height: 44))
         menuView.dataSource = self
         menuView.menuDelegate = self
         menuView.cellAlignment = .center
@@ -85,20 +85,20 @@ extension NavigationBarViewController: PagingMenuViewDataSource {
         return dataSource.count
     }
     
-    func pagingMenuView(pagingMenuView: PagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
         let cell = pagingMenuView.dequeue(with: "identifier") as! NavigationBarMenuCell
         cell.titleLabel.text = dataSource[index].menu
         cell.backgroundColor = .clear
         return cell
     }
     
-    func pagingMenuView(pagingMenuView: PagingMenuView, widthForItemAt index: Int) -> CGFloat {
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, widthForItemAt index: Int) -> CGFloat {
         return 100
     }
 }
 
 extension NavigationBarViewController: PagingMenuViewDelegate {
-    func pagingMenuView(pagingMenuView: PagingMenuView, didSelectItemAt index: Int) {
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, didSelectItemAt index: Int) {
         menuView.scroll(index: index, completeHandler: { _  in })
         contentViewController?.scroll(to: index, animated: true)
     }

@@ -26,7 +26,7 @@ import UIKit
 
 public class OverlayMenuCell: PagingMenuViewCell {
     
-    public weak var referencedMenuView: PagingMenuView?
+    public weak var referencedMenuView: PKPagingMenuView?
     public weak var referencedFocusView: PagingMenuFocusView?
     
     public var hightlightTextColor: UIColor? {
@@ -92,7 +92,7 @@ public class OverlayMenuCell: PagingMenuViewCell {
         setFrame(menuView, maskFrame: focusView.frame, animated: animated)
     }
     
-    func setFrame(_ menuView: PagingMenuView, maskFrame: CGRect, animated: Bool) {
+    func setFrame(_ menuView: PKPagingMenuView, maskFrame: CGRect, animated: Bool) {
         textMaskView.frame = menuView.convert(maskFrame, to: highlightLabel).inset(by: maskInsets)
         
         if let expectedOriginX = menuView.getExpectedAlignmentPositionXIfNeeded() {

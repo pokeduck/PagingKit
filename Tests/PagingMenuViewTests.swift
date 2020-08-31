@@ -27,11 +27,11 @@ import XCTest
 
 class PagingMenuViewTests: XCTestCase {
     
-    var pagingMenuView: PagingMenuView?
+    var pagingMenuView: PKPagingMenuView?
     
     override func setUp() {
         super.setUp()
-        pagingMenuView = PagingMenuView(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
+        pagingMenuView = PKPagingMenuView(frame: CGRect(x: 0, y: 0, width: 320, height: 44))
     }
     
     override func tearDown() {
@@ -50,12 +50,12 @@ class PagingMenuViewTests: XCTestCase {
                 return data.count
             }
             
-            public func pagingMenuView(pagingMenuView: PagingMenuView, widthForItemAt index: Int) -> CGFloat {
+            public func pagingMenuView(pagingMenuView: PKPagingMenuView, widthForItemAt index: Int) -> CGFloat {
                 widthForItemExpectation.fulfill()
                 return 100
             }
             
-            public func pagingMenuView(pagingMenuView: PagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
+            public func pagingMenuView(pagingMenuView: PKPagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
                 cellForItemExpectation.fulfill()
                 return PagingMenuViewCell()
             }
@@ -523,7 +523,7 @@ class MenuViewDataSourceSpy: NSObject, PagingMenuViewDataSource  {
     var data = [String]()
     var widthForItem: CGFloat = 0
     
-    func registerNib(to view: PagingMenuView?) {
+    func registerNib(to view: PKPagingMenuView?) {
         let nib = UINib(nibName: "PagingMenuViewCellStub", bundle: Bundle(for: type(of: self)))
         view?.register(nib: nib, with: "identifier")
     }
@@ -532,11 +532,11 @@ class MenuViewDataSourceSpy: NSObject, PagingMenuViewDataSource  {
         return data.count
     }
     
-    public func pagingMenuView(pagingMenuView: PagingMenuView, widthForItemAt index: Int) -> CGFloat {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, widthForItemAt index: Int) -> CGFloat {
         return widthForItem
     }
     
-    public func pagingMenuView(pagingMenuView: PagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
         return pagingMenuView.dequeue(with: "identifier")
     }
 }

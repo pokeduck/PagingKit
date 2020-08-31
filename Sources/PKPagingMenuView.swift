@@ -115,7 +115,7 @@ public protocol PagingMenuViewDataSource: class {
     ///   - pagingMenuView: The paging menu view requesting this information.
     ///   - index: The index that specifies the location of the item.
     /// - Returns: A configured cell object. You must not return nil from this method.
-    func pagingMenuView(pagingMenuView: PagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell
     
     
     /// Asks the delegate for the width to use for a row in a specified location.
@@ -124,7 +124,7 @@ public protocol PagingMenuViewDataSource: class {
     ///   - pagingMenuView: The paging menu view requesting this information.
     ///   - index: The index that specifies the location of the item.
     /// - Returns: A nonnegative floating-point value that specifies the width (in points) that row should be.
-    func pagingMenuView(pagingMenuView: PagingMenuView, widthForItemAt index: Int) -> CGFloat
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, widthForItemAt index: Int) -> CGFloat
 }
 
 /**
@@ -137,7 +137,7 @@ public protocol PagingMenuViewDelegate: class {
     /// - Parameters:
     ///   - pagingMenuView: The paging menu view requesting this information.
     ///   - index: The index that specifies the location of the item.
-    func pagingMenuView(pagingMenuView: PagingMenuView, didSelectItemAt index: Int)
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, didSelectItemAt index: Int)
     
     /// Notifies the menu view that the frame of its focus view is about to change.
     /// The menu view calls this method before adding a cell to its content. Use this method to detect cell additions, as opposed to monitoring the cell itself to see when it appears.
@@ -146,7 +146,7 @@ public protocol PagingMenuViewDelegate: class {
     ///   - pagingMenuView: a menu view object informing the delegate.
     ///   - index: end index
     ///   - coordinator: animator coordinator
-    func pagingMenuView(pagingMenuView: PagingMenuView, willAnimateFocusViewTo index: Int, with coordinator: PagingMenuFocusViewAnimationCoordinator)
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, willAnimateFocusViewTo index: Int, with coordinator: PagingMenuFocusViewAnimationCoordinator)
 
     /// Tells the delegate that the specified cell is about to be displayed in the menu view.
     ///
@@ -154,17 +154,17 @@ public protocol PagingMenuViewDelegate: class {
     ///   - pagingMenuView: a menu view object informing the delegate.
     ///   - cell: The cell object being added.
     ///   - index: The index path of the data item that the cell represents.
-    func pagingMenuView(pagingMenuView: PagingMenuView, willDisplay cell: PagingMenuViewCell, forItemAt index: Int)
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, willDisplay cell: PagingMenuViewCell, forItemAt index: Int)
 }
 
 public extension PagingMenuViewDelegate {
-    func pagingMenuView(pagingMenuView: PagingMenuView, didSelectItemAt index: Int) {}
-    func pagingMenuView(pagingMenuView: PagingMenuView, willAnimateFocusViewTo index: Int, with coordinator: PagingMenuFocusViewAnimationCoordinator) {}
-    func pagingMenuView(pagingMenuView: PagingMenuView, willDisplay cell: PagingMenuViewCell, forItemAt index: Int) {}
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, didSelectItemAt index: Int) {}
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, willAnimateFocusViewTo index: Int, with coordinator: PagingMenuFocusViewAnimationCoordinator) {}
+    func pagingMenuView(pagingMenuView: PKPagingMenuView, willDisplay cell: PagingMenuViewCell, forItemAt index: Int) {}
 }
 
 /// Displays menu lists of information and supports selection and paging of the information.
-open class PagingMenuView: UIScrollView {
+open class PKPagingMenuView: UIScrollView {
     enum RegisteredCell {
         case nib(nib: UINib)
         case type(type: PagingMenuViewCell.Type)
@@ -720,7 +720,7 @@ open class PagingMenuView: UIScrollView {
 }
 
 //MARK:- Touch Event
-extension PagingMenuView {
+extension PKPagingMenuView {
     open override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesBegan(touches, with: event)
         guard let touchPoint = touches.first.flatMap({ $0.location(in: containerView) }) else { return }

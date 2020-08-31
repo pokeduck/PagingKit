@@ -103,8 +103,8 @@ public class PagingMenuViewController: UIViewController {
     private var fireInvalidateLayout: (() -> Void)?
 
     /// The object to show data and tap interaction.
-    public let menuView: PagingMenuView = {
-        let view = PagingMenuView(frame: CGRect(x: 1, y: 1, width: 1, height: 1))
+    public let menuView: PKPagingMenuView = {
+        let view = PKPagingMenuView(frame: CGRect(x: 1, y: 1, width: 1, height: 1))
         view.backgroundColor = .clear
         view.showsHorizontalScrollIndicator = false
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -127,7 +127,7 @@ public class PagingMenuViewController: UIViewController {
     }
     
     /// If contentSize.width is not over safe area, paging menu view applys cellAlignment to each the cells. (default: .left)
-    public var cellAlignment: PagingMenuView.Alignment {
+    public var cellAlignment: PKPagingMenuView.Alignment {
         set {
             menuView.cellAlignment = newValue
         }
@@ -318,15 +318,15 @@ extension PagingMenuViewController: UIScrollViewDelegate {
 // MARK:- PagingMenuViewDelegate
 
 extension PagingMenuViewController: PagingMenuViewDelegate {
-    public func pagingMenuView(pagingMenuView: PagingMenuView, willDisplay cell: PagingMenuViewCell, forItemAt index: Int) {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, willDisplay cell: PagingMenuViewCell, forItemAt index: Int) {
         delegate?.menuViewController(viewController: self, willDisplay: cell, forItemAt: index)
     }
     
-    public func pagingMenuView(pagingMenuView: PagingMenuView, willAnimateFocusViewTo index: Int, with coordinator: PagingMenuFocusViewAnimationCoordinator) {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, willAnimateFocusViewTo index: Int, with coordinator: PagingMenuFocusViewAnimationCoordinator) {
         delegate?.menuViewController(viewController: self, willAnimateFocusViewTo: index, with: coordinator)
     }
     
-    public func pagingMenuView(pagingMenuView: PagingMenuView, didSelectItemAt index: Int) {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, didSelectItemAt index: Int) {
         delegate?.menuViewController(viewController: self, didSelect: index, previousPage: menuView.focusView.selectedIndex ?? 0)
         guard menuView.focusView.selectedIndex != index else { return }
         menuView.scroll(index: index) { [weak self] (finish) in
@@ -343,12 +343,12 @@ extension PagingMenuViewController: PagingMenuViewDataSource {
         return dataSource?.numberOfItemsForMenuViewController(viewController: self) ?? 0
     }
     
-    public func pagingMenuView(pagingMenuView: PagingMenuView, widthForItemAt index: Int) -> CGFloat {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, widthForItemAt index: Int) -> CGFloat {
         let area = dataSource?.menuViewController(viewController: self, widthForItemAt: index) ?? 0
         return area
     }
 
-    public func pagingMenuView(pagingMenuView: PagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
+    public func pagingMenuView(pagingMenuView: PKPagingMenuView, cellForItemAt index: Int) -> PagingMenuViewCell {
         return dataSource!.menuViewController(viewController: self, cellForItemAt: index)
     }
 }
